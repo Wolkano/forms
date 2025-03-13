@@ -1,0 +1,92 @@
+{
+  "questions": [
+    {
+      "id": 0,
+      "text": "Hur många kvadratmeter ska städas?",
+      "type": "slider",
+      "min": 100,
+      "max": 500,
+      "step": 1,
+      "next": 1,
+      "question": "Kvadratmeter",
+      "enhet": "kvm"
+    },
+    {
+      "id": 1,
+      "text": "Hur många toaletter ska städas?",
+      "type": "slider",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "next": 2,
+      "question": "Toaletter",
+      "enhet": "st"
+    },
+    {
+      "id": 2,
+      "text": "Hur många kök ska städas?",
+      "type": "slider",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "next": 3,
+      "question": "Kök",
+      "enhet": "st"
+    },
+    {
+      "id": 3,
+      "text": "Hur ofta vill du att det ska städas?",
+      "type": "checkbox",
+      "options": [
+        "En gång i veckan",
+        "Varannan vecka",
+        "En gång i månaden",
+        "En gång"
+      ],
+      "multiple": false,
+      "next": 4,
+      "question": "Period",
+      "previous": 2
+    },
+    {
+      "id": 4,
+      "text": "Namn",
+      "inputType": "text",
+      "type": "input",
+      "next": 5,
+      "question": "Namn",
+      "isCustomerInformation": true,
+      "previous": 3
+    },
+    {
+      "id": 5,
+      "text": "Epost",
+      "inputType": "text",
+      "type": "input",
+      "next": 6,
+      "question": "Epost",
+      "isCustomerInformation": true,
+      "previous": 2
+    },
+    {
+      "id": 6,
+      "text": "Telefon",
+      "inputType": "text",
+      "type": "input",
+      "next": 7,
+      "question": "Telefon",
+      "isCustomerInformation": true,
+      "previous": 3
+    },
+    {
+      "id": 7,
+      "text": "Adress",
+      "inputType": "text",
+      "type": "input",
+      "next": null,
+      "question": "Adress",
+      "isCustomerInformation": true,
+      "previous": 4
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "questions": [
+    {
+      "id": 0,
+      "text": "Hej! Olle Offert här. Jag kan hjälpa dig få en gratis offert inom 5 minuter! Vad vill du få en offert inom?",
+      "type": "buttons",
+      "options": [
+        {
+          "text": "Dränering",
+          "value": 200,
+          "next": 200
+        },
+        {
+          "text": "Fasadrenovering",
+          "next": 300,
+          "value": 300
+        },
+        {
+          "text": "Golvbyte",
+          "next": 400,
+          "value": 400
+        }
+      ],
+      "multiple": false,
+      "question": "Tjocklek"
+    },
+    {
+      "id": 200,
+      "text": "Dränering - Längd på alla väggar som skall dräneras och fuktskyddas (m3)",
+      "type": "slider",
+      "min": 1,
+      "max": 70,
+      "step": 1,
+      "next": 201,
+      "question": "Kvadratmeter",
+      "category": "dränering",
+      "previous": 0
+    },
+    {
+      "id": 201,
+      "text": "Väggdjup är måttet från marknivå till golvet i källare. För att räkna ut det gör enligt följande 1. Mät från innergolv upp till ett källarfönsters underkant. (X) 2. Mät på utsidan från fönstrets underkant ner till marknivå. (Y) 3. Beräkna enligt följande: Väggdjup = X - Y",
+      "type": "slider",
+      "min": 0.1,
+      "max": 4.0,
+      "step": 0.1,
+      "next": 202,
+      "question": "Väggdjup",
+      "category": "dränering",
+      "previous": 200
+    },
+    {
+      "id": 202,
+      "text": "100 mm tjocklek ger mycket bra fuktsäkerhet och värmeisolering. 200 mm uppfyller kraven enligt Boverkets regler ur energisynpunkt vid nyproduktion eller byggnadslovspliktig utbyggnad. Med 200 mm får du alltid dubbel dräneringskapacitet, ännu större uttorkning av väggen och lägre energiförbrukning jämfört med 100 mm.",
+      "type": "checkbox",
+      "options": ["100mm", "200mm"],
+      "multiple": false,
+      "next": 203,
+      "question": "Tjocklek",
+      "category": "dränering",
+      "previous": 201
+    },
+    {
+      "id": 203,
+      "text": "Vilken typ av dräneringsbrunn som ska användas avgörs av vilka möjligheter som finns att på ett säkert sätt avleda dräneringsvattnet från fastigheten. Vi har tagit fram lösningar för de vanligaste förekommande fallen.",
+      "type": "checkbox",
+      "options": [
+        "Pumpbrunn (vanligast)",
+        "Dräneringsbrunn utan pump",
+        "Egen lösning"
+      ],
+      "next": 204,
+      "question": "Dräneringsbrunn",
+      "category": "dränering",
+      "previous": 202
+    },
+    {
+      "id": 204,
+      "text": "Välj om överblivna schaktmassor ska förslas bort eller om du behandlar massorna på egen hand. Tänk på att det blir ca 40 - 50 kubikmeter schaktmassor kvar efter återfyllningen.",
+      "type": "checkbox",
+      "options": ["Entreprenören forslar bort", "Egen Bortforsling"],
+      "multiple": false,
+      "next": 2,
+      "question": "Bortforsling",
+      "category": "dränering",
+      "previous": 203
+    },
+    {
+      "id": 300,
+      "text": "Fasadrenovering",
+      "type": "slider",
+      "min": 1,
+      "max": 70,
+      "step": 1,
+      "next": 2,
+      "question": "kvadratmeter",
+      "category": "fasad",
+      "previous": 0
+    },
+    {
+      "id": 400,
+      "text": "Golvbyte - Längd på alla väggar som skall dräneras och fuktskyddas (m3)",
+      "type": "slider",
+      "min": 1,
+      "max": 70,
+      "step": 1,
+      "next": 401,
+      "question": "kvadratmeter",
+      "category": "golvbyte",
+      "previous": 0
+    },
+    {
+      "id": 401,
+      "text": "Väggdjup är måttet från marknivå till golvet i källare. För att räkna ut det gör enligt följande 1. Mät från innergolv upp till ett källarfönsters underkant. (X) 2. Mät på utsidan från fönstrets underkant ner till marknivå. (Y) 3. Beräkna enligt följande: Väggdjup = X - Y",
+      "type": "slider",
+      "min": 0.1,
+      "max": 4.0,
+      "step": 0.1,
+      "next": 402,
+      "question": "Väggdjup",
+      "category": "golvbyte",
+      "previous": 400
+    },
+    {
+      "id": 402,
+      "text": "100 mm tjocklek ger mycket bra fuktsäkerhet och värmeisolering. 200 mm uppfyller kraven enligt Boverkets regler ur energisynpunkt vid nyproduktion eller byggnadslovspliktig utbyggnad. Med 200 mm får du alltid dubbel dräneringskapacitet, ännu större uttorkning av väggen och lägre energiförbrukning jämfört med 100 mm.",
+      "type": "checkbox",
+      "options": ["100mm", "200mm"],
+      "multiple": false,
+      "next": 2,
+      "question": "Tjocklek",
+      "category": "golvbyte",
+      "previous": 401
+    },
+    {
+      "id": 2,
+      "text": "Namn",
+      "inputType": "text",
+      "type": "input",
+      "next": 3,
+      "question": "Namn",
+      "isCustomerInformation": true
+    },
+    {
+      "id": 3,
+      "text": "Epost",
+      "inputType": "text",
+      "type": "input",
+      "next": 4,
+      "question": "Epost",
+      "isCustomerInformation": true,
+      "previous": 2
+    },
+    {
+      "id": 4,
+      "text": "Telefon",
+      "inputType": "text",
+      "type": "input",
+      "next": 5,
+      "question": "Telefon",
+      "isCustomerInformation": true,
+      "previous": 3
+    },
+    {
+      "id": 5,
+      "text": "Adress",
+      "inputType": "text",
+      "type": "input",
+      "next": null,
+      "question": "Adress",
+      "isCustomerInformation": true,
+      "previous": 4
+    }
+  ]
+}

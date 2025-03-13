@@ -1,0 +1,65 @@
+{
+  "questions": [
+    {
+      "id": 0,
+      "text": "Ange längden på respektive vägg alternativt hela sträckan som schaktats upp. Över 70 löpmeter?",
+      "type": "slider",
+      "next": 1,
+      "min": 1,
+      "max": 70,
+      "step": 1,
+      "question": "Vägglängd"
+    },
+    {
+      "id": 1,
+      "text": "Väggdjup är måttet från marknivå till golvet i källare. För att räkna ut det gör enligt följande 1. Mät från innergolv upp till ett källarfönsters underkant. (X) 2. Mät på utsidan från fönstrets underkant ner till marknivå. (Y) 3. Beräkna enligt följande: Väggdjup = X - Y",
+      "type": "slider",
+      "min": 0.1,
+      "max": 4.0,
+      "step": 0.1,
+      "next": 2,
+      "question": "Väggdjup"
+    },
+    {
+      "id": 2,
+      "text": "100 mm tjocklek ger mycket bra fuktsäkerhet och värmeisolering. 200 mm uppfyller kraven enligt Boverkets regler ur energisynpunkt vid nyproduktion eller byggnadslovspliktig utbyggnad. Med 200 mm får du alltid dubbel dräneringskapacitet, ännu större uttorkning av väggen och lägre energiförbrukning jämfört med 100 mm.",
+      "type": "checkbox",
+      "options": ["100mm", "200mm"],
+      "multiple": false,
+      "next": 3,
+      "question": "Tjocklek"
+    },
+    {
+      "id": 3,
+      "text": "Vilken typ av dräneringsbrunn som ska användas avgörs av vilka möjligheter som finns att på ett säkert sätt avleda dräneringsvattnet från fastigheten. Vi har tagit fram lösningar för de vanligaste förekommande fallen.",
+      "type": "checkbox",
+      "options": [
+        "Pumpbrunn (vanligast)",
+        "Dräneringsbrunn utan pump",
+        "Egen lösning"
+      ],
+      "next": 4,
+      "question": "Dräneringsbrunn"
+    },
+    {
+      "id": 4,
+      "text": "Välj om överblivna schaktmassor ska förslas bort eller om du behandlar massorna på egen hand. Tänk på att det blir ca 40 - 50 kubikmeter schaktmassor kvar efter återfyllningen.",
+      "element": "input",
+      "type": "checkbox",
+      "options": ["Entreprenören forslar bort", "Egen Bortforsling"],
+      "multiple": false,
+      "next": 5,
+      "question": "Bortforsling"
+    },
+    {
+      "id": 5,
+      "text": "Välj dina favoriträtter",
+      "element": "input",
+      "type": "checkbox",
+      "multiple": true,
+      "options": ["Pizza", "Tacos", "Hamburgare", "Egen avföring"],
+      "next": null,
+      "question": "Favoritmat"
+    }
+  ]
+}
