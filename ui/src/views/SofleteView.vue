@@ -9,8 +9,12 @@
         >
           ⬅️
         </button>
+        <div class="progress-container">
+          <div class="progress-bar" :style="{ width: progress + '0%' }"></div>
+        </div>
         <p class="questionText">{{ currentQuestion.text }}</p>
         <component
+          style="font-family: 'Open Sans', sans-serif"
           :is="getComponent(currentQuestion.type)"
           :question="currentQuestion"
           @answer="handleAnswer"
@@ -53,7 +57,7 @@ import InputComponent from "../inputs/InputComponent.vue";
 
 const store = useStore();
 const calculatedCategory = computed(() => store.state.calculatedCategory);
-
+const progress = computed(() => store.state.currentQuestionIndex);
 const currentQuestionIndex = computed(() => store.state.currentQuestionIndex);
 const currentQuestion = computed(() =>
   store.state.questions.find((q) => q.id === currentQuestionIndex.value)
@@ -108,13 +112,23 @@ const handleAnswer = (answer) => {
 </script>
 
 <style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+.progress-container {
+  //background-color: blue;
+  width: 100%;
+  height: 20px;
+}
+.progress-bar {
+  background-color: #ccc;
+  height: 20px;
+}
 .ChatContainer {
   margin-left: auto;
   margin-right: auto;
   top: 0;
-  width: 90%;
+  width: 60%;
   height: 500px;
-  background: white;
+  background: #eaebf1;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -144,11 +158,13 @@ const handleAnswer = (answer) => {
   background: transparent;
   margin-right: 5px; /* Moves track inward */
 }
-
-.ChatContainer[open] {
-  transform: translateY(0);
+h1,
+h2,
+h3,
+p {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
 }
-
 .newSolution {
   .questionText {
     font-size: 18px;

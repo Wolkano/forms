@@ -20,7 +20,8 @@
       "step": 1,
       "next": 2,
       "question": "Toaletter",
-      "enhet": "st"
+      "enhet": "st",
+      "previous": 0
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "step": 1,
       "next": 3,
       "question": "Kök",
-      "enhet": "st"
+      "enhet": "st",
+      "previous": 1
     },
     {
       "id": 3,
@@ -66,7 +68,7 @@
       "next": 6,
       "question": "Epost",
       "isCustomerInformation": true,
-      "previous": 2
+      "previous": 4
     },
     {
       "id": 6,
@@ -76,7 +78,7 @@
       "next": 7,
       "question": "Telefon",
       "isCustomerInformation": true,
-      "previous": 3
+      "previous": 5
     },
     {
       "id": 7,
@@ -86,7 +88,7 @@
       "next": null,
       "question": "Adress",
       "isCustomerInformation": true,
-      "previous": 4
+      "previous": 6
     }
   ]
 }

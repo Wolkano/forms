@@ -1,12 +1,5 @@
 <template>
   <router-view />
-  <iframe
-    src="http://localhost:8080/#/soflete"
-    width="100%"
-    height="5000vh"
-    scrolling="no"
-    style="border: none"
-  ></iframe>
 </template>
 
 <script setup>
