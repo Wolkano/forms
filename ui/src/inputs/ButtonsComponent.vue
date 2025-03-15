@@ -16,13 +16,6 @@
 import { defineProps, computed } from "vue";
 import { useRoute } from "vue-router";
 const props = defineProps(["question"]);
-
-/*  Försöker fixa styling efter på kund */
-const route = useRoute();
-
-const themeClass = computed(() => {
-  return route.path.includes("soflete") ? "soflete" : "";
-});
 </script>
 
 <style scoped lang="scss">
@@ -55,13 +48,6 @@ const themeClass = computed(() => {
 
 .option-button:active {
   transform: scale(0.98);
-}
-
-/*  Försöker fixa styling efter på kund */
-.soflete {
-  .option-button {
-    background-color: black;
-  }
 }
 
 @media (max-width: 768px) {

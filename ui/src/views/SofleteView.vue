@@ -22,7 +22,6 @@
           :is="getComponent(currentQuestion.type)"
           :question="currentQuestion"
           @answer="handleAnswer"
-          class="element"
         />
       </div>
 
@@ -127,12 +126,6 @@ const handleAnswer = (answer) => {
   height: 20px;
   border-radius: 20px;
   transition: width 0.5s ease-in-out;
-}
-.element {
-  background-color: white;
-  button {
-    background-color: black;
-  }
 }
 
 .ChatContainer {
