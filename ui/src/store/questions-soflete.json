@@ -9,7 +9,8 @@
       "step": 1,
       "next": 1,
       "question": "Kvadratmeter",
-      "enhet": "kvm"
+      "enhet": "kvm",
+      "progress": 0
     },
     {
       "id": 1,
@@ -21,7 +22,8 @@
       "next": 2,
       "question": "Toaletter",
       "enhet": "st",
-      "previous": 0
+      "previous": 0,
+      "progress": 16
     },
     {
       "id": 2,
@@ -33,7 +35,8 @@
       "next": 3,
       "question": "Kök",
       "enhet": "st",
-      "previous": 1
+      "previous": 1,
+      "progress": 32
     },
     {
       "id": 3,
@@ -48,7 +51,8 @@
       "multiple": false,
       "next": 4,
       "question": "Period",
-      "previous": 2
+      "previous": 2,
+      "progress": 48
     },
     {
       "id": 4,
@@ -58,7 +62,8 @@
       "next": 5,
       "question": "Namn",
       "isCustomerInformation": true,
-      "previous": 3
+      "previous": 3,
+      "progress": 64
     },
     {
       "id": 5,
@@ -68,7 +73,8 @@
       "next": 6,
       "question": "Epost",
       "isCustomerInformation": true,
-      "previous": 4
+      "previous": 4,
+      "progress": 70
     },
     {
       "id": 6,
@@ -78,7 +84,8 @@
       "next": 7,
       "question": "Telefon",
       "isCustomerInformation": true,
-      "previous": 5
+      "previous": 5,
+      "progress": 86
     },
     {
       "id": 7,
@@ -88,7 +95,8 @@
       "next": null,
       "question": "Adress",
       "isCustomerInformation": true,
-      "previous": 6
+      "previous": 6,
+      "progress": 95
     }
   ]
 }
