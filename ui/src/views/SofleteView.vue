@@ -2,30 +2,14 @@
   <div v-if="currentQuestion">
     <div class="ChatContainer">
       <div class="newSolution" v-if="!isCalculated">
-        <div class="progress-container">
-          <div
-            class="progress-bar"
-            :style="{
-              width: (currentQuestion.id / questions.length) * 100 + '%',
-            }"
-          ></div>
-        </div>
-        <div class="navButtons">
-          <button
-            v-if="currentQuestion?.previous !== undefined && !isEditing"
-            @click="goBack"
-            class="backButton"
-          >
-            <span class="material-icons arrow_back">arrow_forward_ios</span>
-          </button>
-          <button
-            v-if="canMoveForward && !isEditing"
-            @click="goForward"
-            class="forwardButton"
-          >
-            <span class="material-icons arrow_back">arrow_forward_ios</span>
-          </button>
-        </div>
+        <ProgressBar :progress="progress" />
+        <NavButtons
+          :can-go-backwards="canGoBackwards"
+          :can-go-forward="canGoForward"
+          @goBack="goBack()"
+          @goForward="goForward()"
+          v-if="!isEditing"
+        />
 
         <div class="question">
           <p class="questionText" v-if="!currentQuestion.isCustomerInformation">
@@ -41,68 +25,14 @@
           />
         </div>
       </div>
-
-      <div v-else class="result">
-        <div v-if="!isSent">
-          <h3>Dina val</h3>
-          <div class="answerText">
-            <div
-              class="answerText__card"
-              v-for="(answer, key) in displayedAnswers"
-              :key="key"
-              @click="editValue(answer)"
-            >
-              <p class="answerText__card--question">
-                {{ answer.question }}
-                <span class="material-icons edit-icon">more_horiz</span>
-              </p>
-
-              <template v-if="Array.isArray(answer.answer)">
-                <p
-                  v-for="(ans, index) in answer.answer"
-                  :key="index"
-                  class="answerText__card--answer"
-                >
-                  {{ ans }}
-                </p>
-              </template>
-              <p v-else class="answerText__card--answer">{{ answer.answer }}</p>
-            </div>
-          </div>
-          <h3>Din information</h3>
-          <div class="answerText">
-            <div
-              class="answerText__card"
-              v-for="(answer, key) in answers['customerInformation']"
-              :key="key"
-              @click="editValue(key)"
-            >
-              <p class="answerText__card--question">
-                {{ key
-                }}<span class="material-icons edit-icon">more_horiz</span>
-              </p>
-              <p class="answerText__card--answer">{{ answer }}</p>
-            </div>
-          </div>
-          <p>Klicka på värden för att ändra dem</p>
-          <div class="result__buttons">
-            <button class="result__buttons__reset" @click="reset">
-              Starta om
-            </button>
-            <button class="result__buttons__submit" @click="sendIn">
-              Skicka in
-            </button>
-          </div>
-        </div>
-        <div v-else class="finalResult">
-          <div v-motion-slide-visible-once-left :duration="1500" :delay="100">
-            <span class="material-icons icon">task_alt</span>
-            <h3>
-              Här kommer ert uträknade pris synas när vi är klara med koden
-            </h3>
-          </div>
-        </div>
-      </div>
+      <FormResults
+        v-else
+        :displayed-answers="displayedAnswers"
+        :answers="answers"
+        @edit-value="editValue"
+        @reset="reset()"
+        @sendIn="sendIn()"
+      />
     </div>
   </div>
 </template>
@@ -115,6 +45,9 @@ import SliderComponent from "../inputs/SliderComponent.vue";
 import CheckboxComponent from "../inputs/CheckboxComponent.vue";
 import InputComponent from "../inputs/InputComponent.vue";
 import RadioButtonComponent from "@/inputs/RadioButtonComponent.vue";
+import ProgressBar from "@/components/ProgressBar.vue";
+import NavButtons from "@/components/NavButtons.vue";
+import FormResults from "@/components/FormResults.vue";
 
 const store = useStore();
 const calculatedCategory = computed(() => store.state.calculatedCategory);
@@ -127,10 +60,16 @@ const currentQuestion = computed(() =>
 const isCalculated = computed(() => store.state.isCalculated);
 const answers = computed(() => store.state.responses);
 const isEditing = ref(false);
-const canMoveForward = computed(
+const canGoForward = computed(
   () => !!store.state.responses[currentQuestion.value.id]
 );
-const isSent = ref(false);
+const canGoBackwards = computed(
+  () => currentQuestion?.value.previous !== undefined
+);
+
+const progress = computed(
+  () => (currentQuestion.value.id / questions.value.length) * 100
+);
 
 const displayedAnswers = computed(() => {
   if (answers.value[calculatedCategory.value]) {
@@ -166,7 +105,6 @@ const editValue = (answer) => {
   const questionToEdit = questions.value.find(
     (q) => q.question === answer?.question || q.question === answer
   );
-
   store.commit("nextQuestion", questionToEdit.id);
   store.commit("setIsCalculated", false);
   isEditing.value = true;
@@ -175,10 +113,6 @@ const editValue = (answer) => {
 const reset = () => {
   store.commit("nextQuestion", 0);
   store.commit("setIsCalculated", false);
-};
-
-const sendIn = () => {
-  isSent.value = true;
 };
 
 const handleAnswer = (answer) => {
@@ -199,16 +133,6 @@ const handleAnswer = (answer) => {
 
 <style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-.progress-container {
-  width: 100%;
-  height: 20px;
-}
-.progress-bar {
-  background-color: #007bff;
-  height: 20px;
-  border-radius: 20px;
-  transition: width 0.5s ease-in-out;
-}
 
 .ChatContainer {
   margin-left: auto;
@@ -241,140 +165,6 @@ const handleAnswer = (answer) => {
         margin-top: 10px;
         margin-bottom: 15px;
         color: #333;
-      }
-    }
-
-    .navButtons {
-      display: flex;
-      flex-direction: row;
-      margin-bottom: auto;
-      justify-content: space-between; /* Pushes items to opposite ends */
-      margin-top: 20px;
-      .backButton {
-        border: none;
-        background-color: transparent;
-        .arrow_back {
-          color: black;
-          font-size: 30px;
-          padding: 10px;
-          transform: scale(-1, 1);
-          &:hover {
-            cursor: pointer;
-            background-color: white;
-            border-radius: 100px;
-            color: #007bff;
-          }
-        }
-      }
-      .forwardButton {
-        border: none;
-        background-color: transparent;
-        margin-left: auto;
-        .arrow_back {
-          color: black;
-          font-size: 30px;
-          padding: 10px;
-          &:hover {
-            cursor: pointer;
-            color: #007bff;
-            border-radius: 100px;
-            background-color: white;
-          }
-        }
-      }
-    }
-  }
-  .result {
-    text-align: left;
-    color: #007bff;
-    height: 100%;
-    .answerText {
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #555;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 10px;
-
-      &__card {
-        width: 45%;
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        padding: 0px 10px;
-        border-radius: 10px;
-        transition: background-color 0.3s;
-        &:hover {
-          background-color: #007bff;
-          color: white;
-          cursor: pointer;
-        }
-        &--question {
-          font-weight: 700;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          .edit-icon {
-            color: white;
-            padding: 3px;
-            border-radius: 100px;
-            transition: background-color 0.5s;
-            &:hover {
-              background-color: #93c7ff;
-              border-radius: 100px;
-            }
-          }
-        }
-        &--answer {
-          font-weight: 500;
-        }
-      }
-    }
-    &__buttons {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-      margin-top: 50px;
-      padding-bottom: 20px !important;
-      justify-content: space-evenly;
-      button {
-        width: 40%;
-        padding: 12px;
-        font-size: 16px;
-        font-weight: 600;
-        background-color: #007bff;
-        color: white;
-        border: solid 1px #007bff;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        text-align: center;
-      }
-      &__submit {
-        &:hover {
-          background-color: #0056b3;
-        }
-      }
-      &__reset {
-        background-color: white !important;
-        color: #007bff !important;
-        &:hover {
-          background-color: #0056b3 !important;
-          color: white !important;
-        }
-      }
-    }
-    .finalResult {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      height: 100% !important;
-      .icon {
-        font-size: 80px;
       }
     }
   }
