@@ -57,9 +57,10 @@
   background-color: #fff;
   border: 2px solid #007bff;
   box-sizing: border-box;
-  transition: box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.5s;
 }
 .vue-slider:hover .vue-slider-dot-handle {
+  transform: scale(1.5);
   border-color: #69c0ff;
 }
 

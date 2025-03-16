@@ -73,16 +73,21 @@ const selectedOption = ref(
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.radio-input:hover + .radio-label {
+  background-color: #79baff;
+  transform: scale(1.2);
+}
+
 .radio-input:checked + .radio-label {
   background-color: #007bff;
   color: white;
-  transform: scale(1.1);
+  transform: scale(1.4);
 }
 
 .confirm-button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -94,7 +99,7 @@ const selectedOption = ref(
 }
 
 .confirm-button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .confirm-button:active {
@@ -102,7 +107,7 @@ const selectedOption = ref(
 }
 
 .confirm-button:disabled {
-  background-color: #d6e8d3;
+  background-color: #9dc2e9;
   cursor: not-allowed;
 }
 

@@ -76,6 +76,13 @@ export default {
   height: 20px;
   cursor: pointer;
   accent-color: #007bff; /* Custom color for checkboxes */
+  transition: transform 0.5s ease;
+  &:hover {
+    transform: scale(1.3);
+  }
+  &:checked {
+    transform: scale(1.5);
+  }
 }
 
 .checkbox-label {
@@ -92,7 +99,7 @@ export default {
 .confirm-button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -104,7 +111,7 @@ export default {
 }
 
 .confirm-button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .confirm-button:active {
@@ -112,7 +119,7 @@ export default {
 }
 
 .confirm-button:disabled {
-  background-color: #d6e8d3;
+  background-color: #9dc2e9;
   cursor: not-allowed;
 }
 

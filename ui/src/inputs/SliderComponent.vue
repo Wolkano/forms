@@ -34,7 +34,6 @@ const selectedValue = ref(
 const enhet = computed(() => props.question.enhet);
 
 const confirmSelection = () => {
-  console.log(selectedValue.value);
   emit("answer", selectedValue.value);
   selectedValue.value = 0;
 };

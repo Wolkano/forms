@@ -1,6 +1,10 @@
 <template>
   <div class="chat-input-container">
     <!-- Input field for user answer -->
+    <h3>{{ props.question.label }}</h3>
+    <span class="material-icons input_icon">{{
+      props.question.inputIcon
+    }}</span>
     <input
       v-model="answer"
       type="text"
@@ -44,6 +48,12 @@ const answer = ref(initialValue.value ?? ""); // Stores the input value
   border-radius: 10px;
   width: 85%;
   margin: 20px auto;
+
+  .input_icon {
+    margin-bottom: 20px;
+    color: #007bff;
+    font-size: 50px;
+  }
 }
 
 .question-label {
@@ -80,7 +90,7 @@ const answer = ref(initialValue.value ?? ""); // Stores the input value
   &__disabled {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: gray;
+    background-color: #9dc2e9;
     color: white;
     border: none;
     border-radius: 5px;

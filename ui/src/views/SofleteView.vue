@@ -43,15 +43,25 @@
       </div>
 
       <div v-else class="result">
-        <h3>Värden</h3>
+        <h3>Dina val</h3>
         <div class="answerText">
           <div
             class="answerText__card"
             v-for="(answer, key) in displayedAnswers"
             :key="key"
+            @click="editValue(answer)"
           >
             <p class="answerText__card--question">{{ answer.question }}</p>
-            <p class="answerText__card--answer">{{ answer.answer }}</p>
+            <template v-if="Array.isArray(answer.answer)">
+              <p
+                v-for="(ans, index) in answer.answer"
+                :key="index"
+                class="answerText__card--answer"
+              >
+                {{ ans }}
+              </p>
+            </template>
+            <p v-else class="answerText__card--answer">{{ answer.answer }}</p>
           </div>
         </div>
         <h3>Din information</h3>
@@ -60,14 +70,16 @@
             class="answerText__card"
             v-for="(answer, key) in answers['customerInformation']"
             :key="key"
+            @click="editValue(key)"
           >
             <p class="answerText__card--question">{{ key }}</p>
             <p class="answerText__card--answer">{{ answer }}</p>
           </div>
         </div>
+        <p>Klicka på värden för att ändra dem</p>
         <div class="result__buttons">
           <button class="result__buttons__reset" @click="reset">
-            Återställ formuläret
+            Starta om
           </button>
           <button class="result__buttons__submit">Skicka in</button>
         </div>
@@ -77,7 +89,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import ButtonsComponent from "../inputs/ButtonsComponent.vue";
 import SliderComponent from "../inputs/SliderComponent.vue";
@@ -95,6 +107,7 @@ const currentQuestion = computed(() =>
 );
 const isCalculated = computed(() => store.state.isCalculated);
 const answers = computed(() => store.state.responses);
+const isEditing = ref(false);
 const canMoveForward = computed(
   () => !!store.state.responses[currentQuestion.value.id]
 );
@@ -129,6 +142,16 @@ const goForward = () => {
   store.commit("nextQuestion", currentQuestion.value.next);
 };
 
+const editValue = (answer) => {
+  const questionToEdit = questions.value.find(
+    (q) => q.question === answer?.question || q.question === answer
+  );
+
+  store.commit("nextQuestion", questionToEdit.id);
+  store.commit("setIsCalculated", false);
+  isEditing.value = true;
+};
+
 const reset = () => {
   store.commit("nextQuestion", 0);
   store.commit("setIsCalculated", false);
@@ -140,9 +163,10 @@ const handleAnswer = (answer) => {
     store.commit("nextQuestion", answer);
   } else {
     store.commit("saveResponse", { id: currentQuestion.value.id, answer });
-    if (currentQuestion.value.next) {
+    if (currentQuestion.value.next && !isEditing.value) {
       store.commit("nextQuestion", currentQuestion.value.next);
     } else {
+      isEditing.value = false;
       store.commit("setIsCalculated", true);
     }
   }
@@ -249,12 +273,17 @@ const handleAnswer = (answer) => {
       gap: 10px;
 
       &__card {
-        width: 30%;
+        width: 28%;
         display: flex;
         flex-direction: column;
         background-color: white;
         padding: 0px 10px;
         border-radius: 10px;
+        &:hover {
+          background-color: #007bff;
+          color: white;
+          cursor: pointer;
+        }
         &--question {
           font-weight: 700;
         }
@@ -267,23 +296,33 @@ const handleAnswer = (answer) => {
       display: flex;
       flex-direction: row;
       gap: 10px;
+      margin-top: 50 + px;
+      justify-content: space-evenly;
       button {
-        width: 100%;
+        width: 40%;
         padding: 12px;
         font-size: 16px;
+        font-weight: 600;
         background-color: #007bff;
         color: white;
-        border: none;
+        border: solid 1px #007bff;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
         text-align: center;
       }
       &__submit {
-        background-color: green !important;
+        &:hover {
+          background-color: #0056b3;
+        }
       }
       &__reset {
-        background-color: red !important;
+        background-color: white !important;
+        color: #007bff !important;
+        &:hover {
+          background-color: #0056b3 !important;
+          color: white !important;
+        }
       }
     }
   }

@@ -58,8 +58,10 @@
       "next": 5,
       "question": "Namn",
       "isCustomerInformation": true,
+      "label": "Vänligen ange ditt namn",
       "previous": 3,
-      "progress": 64
+      "progress": 64,
+      "inputIcon": "person"
     },
     {
       "id": 5,
@@ -68,7 +70,9 @@
       "type": "input",
       "next": 6,
       "question": "Epost",
+      "label": "Vänligen ange din epost-adress",
       "isCustomerInformation": true,
+      "inputIcon": "mail",
       "previous": 4,
       "progress": 70
     },
@@ -80,6 +84,8 @@
       "next": 7,
       "question": "Telefon",
       "isCustomerInformation": true,
+      "label": "Vänligen ange ditt telefonnummer",
+      "inputIcon": "phone",
       "previous": 5,
       "progress": 86
     },
@@ -91,6 +97,8 @@
       "next": null,
       "question": "Adress",
       "isCustomerInformation": true,
+      "label": "Vänligen ange din adress",
+      "inputIcon": "my_location",
       "previous": 6,
       "progress": 95
     }
