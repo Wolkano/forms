@@ -12,14 +12,14 @@
         </div>
         <div class="navButtons">
           <button
-            v-if="currentQuestion?.previous !== undefined"
+            v-if="currentQuestion?.previous !== undefined && !isEditing"
             @click="goBack"
             class="backButton"
           >
             <span class="material-icons arrow_back">arrow_forward_ios</span>
           </button>
           <button
-            v-if="canMoveForward"
+            v-if="canMoveForward && !isEditing"
             @click="goForward"
             class="forwardButton"
           >
