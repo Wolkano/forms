@@ -5,7 +5,9 @@
         <div class="progress-container">
           <div
             class="progress-bar"
-            :style="{ width: currentQuestion.progress + '%' }"
+            :style="{
+              width: (currentQuestion.id / questions.length) * 100 + '%',
+            }"
           ></div>
         </div>
         <div class="navButtons">
@@ -14,7 +16,7 @@
             @click="goBack"
             class="backButton"
           >
-            <span class="material-icons arrow_back">arrow_back_ios</span>
+            <span class="material-icons arrow_back">arrow_forward_ios</span>
           </button>
           <button
             v-if="canMoveForward"
@@ -41,19 +43,27 @@
       </div>
 
       <div v-else class="result">
-        <u><h4>Värden</h4></u>
-        <p
-          v-for="(answer, key) in displayedAnswers"
-          :key="key"
-          class="answerText"
-        >
-          <b>{{ answer.question }}:</b> {{ answer.answer }}
-        </p>
-        <div class="customerInformation">
-          <u><h4>Din information</h4></u>
-          <p v-for="(answer, key) in answers['customerInformation']" :key="key">
-            <b>{{ key }}:</b> {{ answer }}
-          </p>
+        <h3>Värden</h3>
+        <div class="answerText">
+          <div
+            class="answerText__card"
+            v-for="(answer, key) in displayedAnswers"
+            :key="key"
+          >
+            <p class="answerText__card--question">{{ answer.question }}</p>
+            <p class="answerText__card--answer">{{ answer.answer }}</p>
+          </div>
+        </div>
+        <h3>Din information</h3>
+        <div class="answerText">
+          <div
+            class="answerText__card"
+            v-for="(answer, key) in answers['customerInformation']"
+            :key="key"
+          >
+            <p class="answerText__card--question">{{ key }}</p>
+            <p class="answerText__card--answer">{{ answer }}</p>
+          </div>
         </div>
         <div class="result__buttons">
           <button class="result__buttons__reset" @click="reset">
@@ -79,6 +89,7 @@ const store = useStore();
 const calculatedCategory = computed(() => store.state.calculatedCategory);
 
 const currentQuestionIndex = computed(() => store.state.currentQuestionIndex);
+const questions = computed(() => store.state.questions);
 const currentQuestion = computed(() =>
   store.state.questions.find((q) => q.id === currentQuestionIndex.value)
 );
@@ -185,12 +196,6 @@ const handleAnswer = (answer) => {
       }
     }
 
-    .answerText {
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #555;
-    }
-
     .navButtons {
       display: flex;
       flex-direction: row;
@@ -200,13 +205,15 @@ const handleAnswer = (answer) => {
       .backButton {
         border: none;
         background-color: transparent;
-        justify-self: flex-start;
         .arrow_back {
           color: black;
           font-size: 30px;
           padding: 10px;
+          transform: scale(-1, 1);
           &:hover {
             cursor: pointer;
+            background-color: white;
+            border-radius: 100px;
             color: #007bff;
           }
         }
@@ -214,7 +221,6 @@ const handleAnswer = (answer) => {
       .forwardButton {
         border: none;
         background-color: transparent;
-        justify-self: flex-end;
         margin-left: auto;
         .arrow_back {
           color: black;
@@ -223,8 +229,61 @@ const handleAnswer = (answer) => {
           &:hover {
             cursor: pointer;
             color: #007bff;
+            border-radius: 100px;
+            background-color: white;
           }
         }
+      }
+    }
+  }
+  .result {
+    text-align: left;
+    color: #007bff;
+    .answerText {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #555;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      &__card {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 0px 10px;
+        border-radius: 10px;
+        &--question {
+          font-weight: 700;
+        }
+        &--answer {
+          font-weight: 500;
+        }
+      }
+    }
+    &__buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        text-align: center;
+      }
+      &__submit {
+        background-color: green !important;
+      }
+      &__reset {
+        background-color: red !important;
       }
     }
   }
@@ -245,39 +304,11 @@ const handleAnswer = (answer) => {
   margin-right: 5px; /* Moves track inward */
 }
 h1,
-h2,
-h3 {
+h2 {
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
 }
 p {
   font-family: "Open sans", sans-serif;
-}
-
-.result {
-  text-align: left;
-  &__buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      text-align: center;
-    }
-    &__submit {
-      background-color: green !important;
-    }
-    &__reset {
-      background-color: red !important;
-    }
-  }
 }
 </style>
