@@ -41,8 +41,6 @@ const answer = ref(initialValue.value ?? ""); // Stores the input value
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
-  padding: 20px;
   border-radius: 10px;
   width: 85%;
   margin: 20px auto;

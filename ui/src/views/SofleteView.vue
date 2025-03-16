@@ -25,15 +25,19 @@
           </button>
         </div>
 
-        <p class="questionText">{{ currentQuestion.text }}</p>
-        <component
-          style="font-family: 'Open Sans', sans-serif"
-          :is="getComponent(currentQuestion.type)"
-          :question="currentQuestion"
-          :answers="answers"
-          @answer="handleAnswer"
-          :key="currentQuestion"
-        />
+        <div class="question">
+          <p class="questionText" v-if="!currentQuestion.isCustomerInformation">
+            {{ currentQuestion.text }}
+          </p>
+          <component
+            style="font-family: 'Open Sans', sans-serif"
+            :is="getComponent(currentQuestion.type)"
+            :question="currentQuestion"
+            :answers="answers"
+            @answer="handleAnswer"
+            :key="currentQuestion"
+          />
+        </div>
       </div>
 
       <div v-else class="result">
@@ -43,7 +47,7 @@
           :key="key"
           class="answerText"
         >
-          <b>{{ key }}:</b> {{ answer }}
+          <b>{{ answer.question }}:</b> {{ answer.answer }}
         </p>
         <div class="customerInformation">
           <u><h4>Din information</h4></u>
@@ -158,12 +162,72 @@ const handleAnswer = (answer) => {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
   flex-direction: column;
-
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #ccc transparent; /* Firefox */
 
   padding-right: 15px;
+  .newSolution {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+    .question {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 100%;
+      .questionText {
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        color: #333;
+      }
+    }
+
+    .answerText {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .navButtons {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: auto;
+      justify-content: space-between; /* Pushes items to opposite ends */
+      margin-top: 20px;
+      .backButton {
+        border: none;
+        background-color: transparent;
+        justify-self: flex-start;
+        .arrow_back {
+          color: black;
+          font-size: 30px;
+          padding: 10px;
+          &:hover {
+            cursor: pointer;
+            color: #007bff;
+          }
+        }
+      }
+      .forwardButton {
+        border: none;
+        background-color: transparent;
+        justify-self: flex-end;
+        margin-left: auto;
+        .arrow_back {
+          color: black;
+          font-size: 30px;
+          padding: 10px;
+          &:hover {
+            cursor: pointer;
+            color: #007bff;
+          }
+        }
+      }
+    }
+  }
 }
 
 .ChatContainer::-webkit-scrollbar {
@@ -189,58 +253,7 @@ h3 {
 p {
   font-family: "Open sans", sans-serif;
 }
-.newSolution {
-  display: flex;
-  flex-direction: column;
-  .questionText {
-    font-size: 18px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #333;
-  }
 
-  .answerText {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #555;
-  }
-
-  .navButtons {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    justify-content: space-between; /* Pushes items to opposite ends */
-    .backButton {
-      border: none;
-      background-color: transparent;
-      justify-self: flex-start;
-      .arrow_back {
-        color: black;
-        font-size: 30px;
-        padding: 10px;
-        &:hover {
-          cursor: pointer;
-          color: #007bff;
-        }
-      }
-    }
-    .forwardButton {
-      border: none;
-      background-color: transparent;
-      justify-self: flex-end;
-      margin-left: auto;
-      .arrow_back {
-        color: black;
-        font-size: 30px;
-        padding: 10px;
-        &:hover {
-          cursor: pointer;
-          color: #007bff;
-        }
-      }
-    }
-  }
-}
 .result {
   text-align: left;
   &__buttons {

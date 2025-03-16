@@ -17,7 +17,7 @@
   <button
     @click="emit('answer', selectedOption)"
     class="confirm-button"
-    :disabled="!selectedOption"
+    :disabled="selectedOption === undefined"
   >
     Bekräfta val
   </button>
@@ -29,7 +29,10 @@ import { ref, defineProps, defineEmits } from "vue";
 const props = defineProps(["question", "answers"]);
 const emit = defineEmits(["answer"]);
 
-const selectedOption = ref(props.answers[props.question.id]?.answer ?? "");
+// Ensure the default value for selectedOption can be 0
+const selectedOption = ref(
+  props.answers[props.question.id]?.answer ?? undefined
+);
 </script>
 
 <style scoped lang="scss">
@@ -38,9 +41,8 @@ const selectedOption = ref(props.answers[props.question.id]?.answer ?? "");
   flex-direction: row;
   gap: 15px;
   align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  max-width: 600px;
+  justify-content: space-around;
+  width: 90%;
   margin: 20px auto;
   padding: 15px;
   background-color: #fff;
