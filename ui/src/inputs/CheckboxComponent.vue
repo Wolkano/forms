@@ -38,7 +38,6 @@ import { ref } from "vue";
 export default {
   props: ["question", "answers"],
   setup(props) {
-    console.log(props.answers[props.question.id]);
     const selectedOptions = ref(props.answers[props.question.id]?.answer ?? []);
 
     const handleSelection = (option) => {

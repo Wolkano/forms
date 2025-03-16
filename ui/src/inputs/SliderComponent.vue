@@ -27,8 +27,6 @@ import "../assets/slider.css";
 const props = defineProps(["question", "answers"]);
 const emit = defineEmits(["answer"]);
 
-console.log(props.answers);
-
 const selectedValue = ref(
   props.answers[props.question.id]?.answer ??
     (props.question.min + props.question.max) / 2

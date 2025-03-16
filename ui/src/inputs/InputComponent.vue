@@ -24,11 +24,16 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref, computed } from "vue";
 
 const props = defineProps(["question", "answers"]);
-console.log(props.answers[props.question.id]);
-const answer = ref(props.answers[props.question.id]?.answer ?? ""); // Stores the input value
+const initialValue = computed(() =>
+  props.question.isCustomerInformation
+    ? props.answers.customerInformation[props.question.question]
+    : props.answers[props.question.id]?.answer
+);
+
+const answer = ref(initialValue.value ?? ""); // Stores the input value
 </script>
 
 <style scoped lang="scss">
