@@ -13,8 +13,7 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from "vue";
-import { useRoute } from "vue-router";
+import { defineProps } from "vue";
 const props = defineProps(["question"]);
 </script>
 

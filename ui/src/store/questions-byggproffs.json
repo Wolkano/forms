@@ -4,6 +4,7 @@
       "id": 0,
       "text": "Hej! Olle Offert här. Jag kan hjälpa dig få en gratis offert inom 5 minuter! Vad vill du få en offert inom?",
       "type": "buttons",
+      "formChooser": true,
       "options": [
         {
           "text": "Dränering",

@@ -15,9 +15,10 @@
           $emit('answer', answer), (answer = '');
         }
       "
-      class="submit-button"
+      :class="answer.length ? 'submit-button' : 'submit-button__disabled'"
+      :disabled="!answer.length"
     >
-      Submit
+      Bekräfta
     </button>
   </div>
 </template>
@@ -25,8 +26,9 @@
 <script setup>
 import { defineProps, ref } from "vue";
 
-const props = defineProps(["question"]);
-const answer = ref(""); // Stores the input value
+const props = defineProps(["question", "answers"]);
+console.log(props.answers[props.question.id]);
+const answer = ref(props.answers[props.question.id]?.answer ?? ""); // Stores the input value
 </script>
 
 <style scoped lang="scss">
@@ -72,6 +74,17 @@ const answer = ref(""); // Stores the input value
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  &__disabled {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: not-allowed;
+  }
 }
 
 .submit-button:hover {

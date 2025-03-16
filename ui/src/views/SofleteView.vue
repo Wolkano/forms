@@ -2,18 +2,27 @@
   <div v-if="currentQuestion">
     <div class="ChatContainer">
       <div class="newSolution" v-if="!isCalculated">
-        <button
-          v-if="currentQuestion?.previous !== undefined"
-          @click="goBack"
-          class="backButton"
-        >
-          ⬅️
-        </button>
         <div class="progress-container">
           <div
             class="progress-bar"
             :style="{ width: currentQuestion.progress + '%' }"
           ></div>
+        </div>
+        <div class="navButtons">
+          <button
+            v-if="currentQuestion?.previous !== undefined"
+            @click="goBack"
+            class="backButton"
+          >
+            <span class="material-icons arrow_back">arrow_back_ios</span>
+          </button>
+          <button
+            v-if="canMoveForward"
+            @click="goForward"
+            class="forwardButton"
+          >
+            <span class="material-icons arrow_back">arrow_forward_ios</span>
+          </button>
         </div>
 
         <p class="questionText">{{ currentQuestion.text }}</p>
@@ -21,7 +30,9 @@
           style="font-family: 'Open Sans', sans-serif"
           :is="getComponent(currentQuestion.type)"
           :question="currentQuestion"
+          :answers="answers"
           @answer="handleAnswer"
+          :key="currentQuestion"
         />
       </div>
 
@@ -66,9 +77,11 @@ const currentQuestionIndex = computed(() => store.state.currentQuestionIndex);
 const currentQuestion = computed(() =>
   store.state.questions.find((q) => q.id === currentQuestionIndex.value)
 );
-const questions = computed(() => store.state.questions);
 const isCalculated = computed(() => store.state.isCalculated);
 const answers = computed(() => store.state.responses);
+const canMoveForward = computed(
+  () => !!store.state.responses[currentQuestion.value.id]
+);
 
 const displayedAnswers = computed(() => {
   if (answers.value[calculatedCategory.value]) {
@@ -95,13 +108,17 @@ const goBack = () => {
   store.commit("nextQuestion", currentQuestion.value.previous);
 };
 
+const goForward = () => {
+  store.commit("nextQuestion", currentQuestion.value.next);
+};
+
 const reset = () => {
   store.commit("nextQuestion", 0);
   store.commit("setIsCalculated", false);
 };
 
 const handleAnswer = (answer) => {
-  const isChoosingForm = questions.value.some((q) => q.id === answer);
+  const isChoosingForm = currentQuestion.value.formChooser;
   if (isChoosingForm) {
     store.commit("nextQuestion", answer);
   } else {
@@ -122,7 +139,7 @@ const handleAnswer = (answer) => {
   height: 20px;
 }
 .progress-bar {
-  background-color: #3f6395;
+  background-color: #007bff;
   height: 20px;
   border-radius: 20px;
   transition: width 0.5s ease-in-out;
@@ -140,16 +157,13 @@ const handleAnswer = (answer) => {
   padding: 20px;
   flex-direction: column;
 
-  /* Enable scrolling */
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #ccc transparent; /* Firefox */
 
-  /* Moves scrollbar slightly inward */
   padding-right: 15px;
 }
 
-/* For Webkit browsers (Chrome, Edge, Safari) */
 .ChatContainer::-webkit-scrollbar {
   width: 6px;
 }
@@ -174,9 +188,11 @@ p {
   font-family: "Open sans", sans-serif;
 }
 .newSolution {
+  display: flex;
+  flex-direction: column;
   .questionText {
     font-size: 18px;
-    margin-top: 75px;
+    margin-top: 10px;
     margin-bottom: 15px;
     color: #333;
   }
@@ -187,25 +203,40 @@ p {
     color: #555;
   }
 
-  .backButton {
-    margin-top: 15px;
-    padding: 10px 20px;
-    padding-bottom: 50px;
-    color: white;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    position: absolute;
-    left: 10px; /* Moves it to the left */
-    top: 10px; /* Adjusts vertical position */
-    padding: 10px 20px;
-    background-color: white;
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  .navButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    justify-content: space-between; /* Pushes items to opposite ends */
+    .backButton {
+      border: none;
+      background-color: transparent;
+      justify-self: flex-start;
+      .arrow_back {
+        color: black;
+        font-size: 30px;
+        padding: 10px;
+        &:hover {
+          cursor: pointer;
+          color: #007bff;
+        }
+      }
+    }
+    .forwardButton {
+      border: none;
+      background-color: transparent;
+      justify-self: flex-end;
+      margin-left: auto;
+      .arrow_back {
+        color: black;
+        font-size: 30px;
+        padding: 10px;
+        &:hover {
+          cursor: pointer;
+          color: #007bff;
+        }
+      }
+    }
   }
 }
 .result {

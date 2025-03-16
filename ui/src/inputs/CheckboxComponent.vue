@@ -27,7 +27,7 @@
       class="confirm-button"
       :disabled="!selectedOptions?.length"
     >
-      Confirm Selection
+      Bekräfta val
     </button>
   </div>
 </template>
@@ -36,9 +36,10 @@
 import { ref } from "vue";
 
 export default {
-  props: ["question"],
+  props: ["question", "answers"],
   setup(props) {
-    const selectedOptions = ref([]);
+    console.log(props.answers[props.question.id]);
+    const selectedOptions = ref(props.answers[props.question.id]?.answer ?? []);
 
     const handleSelection = (option) => {
       if (!props.question.multiple) {

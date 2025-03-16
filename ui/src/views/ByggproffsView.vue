@@ -20,7 +20,7 @@
           @click="goBack"
           class="backButton"
         >
-          ⬅️
+          <span class="material-icons arrow_back">arrow_back_ios</span>
         </button>
         <p class="questionText">{{ currentQuestion.text }}</p>
         <component

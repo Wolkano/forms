@@ -1,13 +1,14 @@
 <template>
   <div class="chat-input-container">
     <!-- Range Slider Input -->
-    <input
-      type="range"
+    <vue-slider
+      v-model="selectedValue"
       :min="question?.min"
       :max="question?.max"
-      v-model="selectedValue"
       class="slider-input"
       :step="question.step"
+      width="100%"
+      dotSize="20"
     />
 
     <!-- Display the selected value -->
@@ -18,22 +19,26 @@
   </div>
 </template>
 
-<script>
-import { ref, computed } from "vue";
+<script setup>
+import { ref, computed, defineProps, defineEmits } from "vue";
+import VueSlider from "vue-slider-component";
+import "../assets/slider.css";
 
-export default {
-  props: ["question"],
-  setup(props, { emit }) {
-    const selectedValue = ref((props.question.min + props.question.max) / 2);
-    const enhet = computed(() => props.question.enhet);
+const props = defineProps(["question", "answers"]);
+const emit = defineEmits(["answer"]);
 
-    const confirmSelection = () => {
-      emit("answer", selectedValue.value);
-      selectedValue.value = 0;
-    };
+console.log(props.answers);
 
-    return { selectedValue, confirmSelection, enhet };
-  },
+const selectedValue = ref(
+  props.answers[props.question.id]?.answer ??
+    (props.question.min + props.question.max) / 2
+);
+const enhet = computed(() => props.question.enhet);
+
+const confirmSelection = () => {
+  console.log(selectedValue.value);
+  emit("answer", selectedValue.value);
+  selectedValue.value = 0;
 };
 </script>
 
@@ -48,22 +53,6 @@ export default {
   border-radius: 10px;
   width: 85%;
   margin: 20px auto;
-}
-
-.slider-input {
-  width: 100%;
-  margin-bottom: 20px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 8px;
-  background: #ddd;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.slider-input:hover {
-  background-color: #007bff;
 }
 
 .slider-input:focus {

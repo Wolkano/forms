@@ -47,11 +47,16 @@ export default createStore({
           }
 
           // Save the answer inside the category
-          state.responses[currentQuestion.category][currentQuestion.question] =
-            answer;
+          state.responses[currentQuestion.category][currentQuestion.id] = {
+            question: currentQuestion.question,
+            answer,
+          };
         } else {
           // If no category exists, save the answer directly with the question name
-          state.responses[currentQuestion.question] = answer;
+          state.responses[currentQuestion.id] = {
+            question: currentQuestion.question,
+            answer,
+          };
         }
       }
 
