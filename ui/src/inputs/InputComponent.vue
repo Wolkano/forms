@@ -7,7 +7,8 @@
     }}</span>
     <input
       v-model="answer"
-      type="text"
+      :type="props.question.inputType"
+      :autocomplete="props.question.autocomplete"
       :placeholder="props.question.question"
       class="text-input"
     />
