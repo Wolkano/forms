@@ -15,10 +15,8 @@
     {
       "id": 1,
       "text": "Hur många toaletter ska städas?",
-      "type": "slider",
-      "min": 0,
-      "max": 6,
-      "step": 1,
+      "type": "radioButton",
+      "options": [0, 1, 2, 3, 4, 5, 6],
       "next": 2,
       "question": "Toaletter",
       "enhet": "st",

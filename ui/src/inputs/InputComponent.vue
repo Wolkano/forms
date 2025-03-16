@@ -29,7 +29,7 @@ import { defineProps, ref, computed } from "vue";
 const props = defineProps(["question", "answers"]);
 const initialValue = computed(() =>
   props.question.isCustomerInformation
-    ? props.answers.customerInformation[props.question.question]
+    ? props.answers?.customerInformation?.[props?.question?.question]
     : props.answers[props.question.id]?.answer
 );
 

@@ -69,6 +69,7 @@ import ButtonsComponent from "../inputs/ButtonsComponent.vue";
 import SliderComponent from "../inputs/SliderComponent.vue";
 import CheckboxComponent from "../inputs/CheckboxComponent.vue";
 import InputComponent from "../inputs/InputComponent.vue";
+import RadioButtonComponent from "@/inputs/RadioButtonComponent.vue";
 
 const store = useStore();
 const calculatedCategory = computed(() => store.state.calculatedCategory);
@@ -100,6 +101,7 @@ const getComponent = (type) => {
       slider: SliderComponent,
       checkbox: CheckboxComponent,
       input: InputComponent,
+      radioButton: RadioButtonComponent,
     }[type] || "div"
   );
 };
