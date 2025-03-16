@@ -52,7 +52,11 @@
               :key="key"
               @click="editValue(answer)"
             >
-              <p class="answerText__card--question">{{ answer.question }}</p>
+              <p class="answerText__card--question">
+                {{ answer.question }}
+                <span class="material-icons edit-icon">more_horiz</span>
+              </p>
+
               <template v-if="Array.isArray(answer.answer)">
                 <p
                   v-for="(ans, index) in answer.answer"
@@ -73,7 +77,10 @@
               :key="key"
               @click="editValue(key)"
             >
-              <p class="answerText__card--question">{{ key }}</p>
+              <p class="answerText__card--question">
+                {{ key
+                }}<span class="material-icons edit-icon">more_horiz</span>
+              </p>
               <p class="answerText__card--answer">{{ answer }}</p>
             </div>
           </div>
@@ -291,12 +298,13 @@ const handleAnswer = (answer) => {
       gap: 10px;
 
       &__card {
-        width: 28%;
+        width: 45%;
         display: flex;
         flex-direction: column;
         background-color: white;
         padding: 0px 10px;
         border-radius: 10px;
+        transition: background-color 0.3s;
         &:hover {
           background-color: #007bff;
           color: white;
@@ -304,6 +312,19 @@ const handleAnswer = (answer) => {
         }
         &--question {
           font-weight: 700;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .edit-icon {
+            color: white;
+            padding: 3px;
+            border-radius: 100px;
+            transition: background-color 0.5s;
+            &:hover {
+              background-color: #93c7ff;
+              border-radius: 100px;
+            }
+          }
         }
         &--answer {
           font-weight: 500;
