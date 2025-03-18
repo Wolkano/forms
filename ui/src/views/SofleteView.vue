@@ -12,9 +12,12 @@
         />
 
         <div class="question">
-          <p class="questionText" v-if="!currentQuestion.isCustomerInformation">
+          <h2
+            class="questionText"
+            v-if="!currentQuestion.isCustomerInformation"
+          >
             {{ currentQuestion.text }}
-          </p>
+          </h2>
           <component
             style="font-family: 'Open Sans', sans-serif"
             :is="getComponent(currentQuestion.type)"
@@ -24,6 +27,9 @@
             :key="currentQuestion"
           />
         </div>
+        <p class="question__progress-count">
+          {{ currentQuestion.id + 1 }} av {{ questions.length }}
+        </p>
       </div>
       <FormResults
         v-else
@@ -140,16 +146,14 @@ const handleAnswer = (answer) => {
   top: 0;
   width: 60%;
   height: 500px;
-  background: #eaebf1;
+  background: white;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: solid gray 2px;
   padding: 20px;
   flex-direction: column;
-  overflow-y: auto;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #ccc transparent; /* Firefox */
-
+  overflow-y: scroll;
   padding-right: 15px;
+
   .newSolution {
     display: flex;
     flex-direction: column;
@@ -161,35 +165,32 @@ const handleAnswer = (answer) => {
       justify-content: space-evenly;
       height: 100%;
       .questionText {
-        font-size: 18px;
+        font-size: 26px;
         margin-top: 10px;
         margin-bottom: 15px;
         color: #333;
       }
+      &__progress-count {
+        font-weight: 700;
+        margin-top: auto;
+        align-self: flex-end;
+      }
     }
   }
-}
-
-.ChatContainer::-webkit-scrollbar {
-  width: 6px;
-}
-
-.ChatContainer::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 3px;
-  margin-right: 5px; /* Moves it inward */
-}
-
-.ChatContainer::-webkit-scrollbar-track {
-  background: transparent;
-  margin-right: 5px; /* Moves track inward */
-}
-h1,
-h2 {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-}
-p {
-  font-family: "Open sans", sans-serif;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin-right: 5px;
+  }
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
 }
 </style>

@@ -7,11 +7,9 @@
           class="answerText__card"
           v-for="(answer, key) in props.displayedAnswers"
           :key="key"
-          @click="$emit('editValue', answer)"
         >
           <p class="answerText__card--question">
             {{ answer.question }}
-            <span class="material-icons edit-icon">more_horiz</span>
           </p>
 
           <template v-if="Array.isArray(answer.answer)">
@@ -19,11 +17,19 @@
               v-for="(ans, index) in answer.answer"
               :key="index"
               class="answerText__card--answer"
+              @click="$emit('editValue', answer)"
             >
-              {{ ans }}
+              {{ ans }} <span class="material-icons edit-icon">edit</span>
             </p>
           </template>
-          <p v-else class="answerText__card--answer">{{ answer.answer }}</p>
+          <p
+            v-else
+            class="answerText__card--answer"
+            @click="$emit('editValue', answer)"
+          >
+            {{ answer.answer }}
+            <span class="material-icons edit-icon">edit</span>
+          </p>
         </div>
       </div>
       <h3>Din information</h3>
@@ -35,12 +41,15 @@
           @click="$emit('editValue', key)"
         >
           <p class="answerText__card--question">
-            {{ key }}<span class="material-icons edit-icon">more_horiz</span>
+            {{ key }}
           </p>
-          <p class="answerText__card--answer">{{ answer }}</p>
+          <p class="answerText__card--answer">
+            {{ answer }}
+            <span class="material-icons edit-icon">edit</span>
+          </p>
         </div>
       </div>
-      <p>Klicka på värden för att ändra dem</p>
+      <p>Klicka på korten för att ändra ditt val</p>
       <div class="result__buttons">
         <button class="result__buttons__reset" @click="$emit('reset')">
           Starta om
@@ -96,20 +105,30 @@ const props = defineProps({
       width: 45%;
       display: flex;
       flex-direction: column;
-      background-color: white;
-      padding: 0px 10px;
-      border-radius: 10px;
-      transition: background-color 0.3s;
-      &:hover {
-        background-color: #007bff;
-        color: white;
-        cursor: pointer;
-      }
+
       &--question {
         font-weight: 700;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        margin-bottom: 0px;
+      }
+      &--answer {
+        font-weight: 500;
+        background-color: white;
+        padding: 10px 10px;
+        border-radius: 10px;
+        transition: background-color 0.3s;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border: solid 2px gray;
+        &:hover {
+          background-color: #007bff;
+          color: white;
+          cursor: pointer;
+        }
         .edit-icon {
           color: white;
           padding: 3px;
@@ -118,11 +137,9 @@ const props = defineProps({
           &:hover {
             background-color: #93c7ff;
             border-radius: 100px;
+            color: white;
           }
         }
-      }
-      &--answer {
-        font-weight: 500;
       }
     }
   }

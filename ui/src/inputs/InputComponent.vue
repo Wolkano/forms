@@ -1,7 +1,7 @@
 <template>
   <div class="chat-input-container">
     <!-- Input field for user answer -->
-    <h3>{{ props.question.label }}</h3>
+    <h2>{{ props.question.label }}</h2>
     <span class="material-icons input_icon">{{
       props.question.inputIcon
     }}</span>
