@@ -152,7 +152,6 @@ const handleAnswer = (answer) => {
   padding: 20px;
   flex-direction: column;
   overflow-y: scroll;
-  padding-right: 15px;
 
   .newSolution {
     display: flex;
@@ -178,12 +177,12 @@ const handleAnswer = (answer) => {
     }
   }
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #007bff;
-    border-radius: 3px;
     margin-right: 5px;
+    border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;

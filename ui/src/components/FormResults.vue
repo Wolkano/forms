@@ -59,21 +59,32 @@
         </button>
       </div>
     </div>
-    <div v-else class="finalResult">
+    <div v-if="isSent && !submitError" class="finalResult">
       <div v-motion-slide-visible-once-left :duration="1500" :delay="100">
         <span class="material-icons icon">task_alt</span>
         <h3>Här kommer ert uträknade pris synas när vi är klara med koden</h3>
+      </div>
+    </div>
+    <div v-if="isSent && submitError" class="finalResult">
+      <div v-motion-slide-visible-once-left :duration="1500" :delay="100">
+        <span class="material-icons icon">error</span>
+        <h3>Något gick fel</h3>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref, computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const isSent = ref(false);
+const submitError = computed(() => store.state.submitError);
 
 const sendIn = () => {
+  store.dispatch("postForm");
   isSent.value = true;
 };
 

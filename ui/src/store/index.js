@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import axios from "axios";
 
 export default createStore({
   state: {
@@ -8,6 +9,8 @@ export default createStore({
       JSON.parse(localStorage.getItem("currentQuestionIndex")) || 0,
     isCalculated: false,
     calculatedCategory: localStorage.getItem("calculatedCategory") || null,
+    submitError: false,
+    company: null,
   },
   getters: {},
   mutations: {
@@ -22,16 +25,13 @@ export default createStore({
         (q) => q.id === state.currentQuestionIndex
       );
 
-      // If it's customer information, save it as before
       if (currentQuestion?.isCustomerInformation) {
         if (!state.responses.customerInformation) {
           state.responses.customerInformation = {};
         }
         state.responses.customerInformation[currentQuestion.text] = answer;
       } else {
-        // Save the answer inside the category of the current question (if it's not customer information)
         if (currentQuestion.category) {
-          // Ensure the category object exists
           if (!state.responses[currentQuestion.category]) {
             state.responses[currentQuestion.category] = {};
           }
@@ -46,13 +46,11 @@ export default createStore({
             state.calculatedCategory = currentQuestion.category;
           }
 
-          // Save the answer inside the category
           state.responses[currentQuestion.category][currentQuestion.id] = {
             question: currentQuestion.question,
             answer,
           };
         } else {
-          // If no category exists, save the answer directly with the question name
           state.responses[currentQuestion.id] = {
             question: currentQuestion.question,
             answer,
@@ -67,6 +65,12 @@ export default createStore({
       localStorage.setItem("currentQuestionIndex", answer);
       state.currentQuestionIndex = answer;
     },
+    setSubmitError(state, error) {
+      state.submitError = error;
+    },
+    setCompany(state, company) {
+      state.company = company;
+    },
   },
   actions: {
     async loadQuestions({ commit }, company) {
@@ -75,8 +79,21 @@ export default createStore({
           `@/store/questions-${company}.json`
         );
         commit("setQuestions", questionsModule.questions);
+        commit("setCompany", company);
       } catch (error) {
         console.error("Error loading questions:", error);
+      }
+    },
+    async postForm({ commit }) {
+      const formData = this.state.responses;
+      const company = this.state.company;
+      try {
+        await axios.post("http://localhost:3000/api/send-to-zapier", {
+          formData,
+          company,
+        });
+      } catch (error) {
+        commit("setSubmitError", true);
       }
     },
   },
