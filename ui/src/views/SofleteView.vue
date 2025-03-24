@@ -37,7 +37,6 @@
         :answers="answers"
         @edit-value="editValue"
         @reset="reset()"
-        @sendIn="sendIn()"
       />
     </div>
   </div>

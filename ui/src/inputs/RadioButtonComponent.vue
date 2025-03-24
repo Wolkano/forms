@@ -4,12 +4,12 @@
     <div v-for="option in question.options" :key="option" class="radio-option">
       <input
         type="radio"
-        :id="option"
-        :value="option"
+        :id="option.id"
+        :value="option.value"
         v-model="selectedOption"
         class="radio-input"
       />
-      <label :for="option" class="radio-label">{{ option }}</label>
+      <label :for="option.id" class="radio-label">{{ option.value }}</label>
     </div>
 
     <!-- Confirm button -->

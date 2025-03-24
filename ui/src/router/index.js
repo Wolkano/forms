@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import ByggproffsView from "../views/ByggproffsView.vue";
 import HomeView from "@/views/HomeView.vue";
-import SofleteView from "@/views/SofleteView.vue";
+import SofleteView from "@/views/forms/SofleteFormView.vue";
 
 const routes = [
   {

@@ -16,7 +16,15 @@
       "id": 1,
       "text": "Hur många toaletter ska städas?",
       "type": "radioButton",
-      "options": [0, 1, 2, 3, 4, 5, 6],
+      "options": [
+        { "id": 123456, "value": 0 },
+        { "id": 234567, "value": 1 },
+        { "id": 345678, "value": 2 },
+        { "id": 456789, "value": 3 },
+        { "id": 567890, "value": 4 },
+        { "id": 678901, "value": 5 },
+        { "id": 789012, "value": 6 }
+      ],
       "next": 2,
       "question": "Toaletter",
       "enhet": "st",
@@ -27,7 +35,15 @@
       "id": 2,
       "text": "Hur många kök ska städas?",
       "type": "radioButton",
-      "options": [0, 1, 2, 3, 4, 5, 6],
+      "options": [
+        { "id": 374829, "value": 0 },
+        { "id": 921473, "value": 1 },
+        { "id": 482910, "value": 2 },
+        { "id": 693725, "value": 3 },
+        { "id": 158493, "value": 4 },
+        { "id": 874102, "value": 5 },
+        { "id": 340285, "value": 6 }
+      ],
       "next": 3,
       "question": "Kök",
       "enhet": "st",
@@ -40,9 +56,9 @@
       "type": "checkbox",
       "options": [
         "En gång i veckan",
-        "Varannan vecka",
-        "En gång i månaden",
-        "En gång"
+        "En gång varannan vecka",
+        "En gång var tredje vecka",
+        "En gång var fjärde vecka"
       ],
       "multiple": false,
       "next": 4,

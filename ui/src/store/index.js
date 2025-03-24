@@ -11,6 +11,7 @@ export default createStore({
     calculatedCategory: localStorage.getItem("calculatedCategory") || null,
     submitError: false,
     company: null,
+    staticFormResponses: {},
   },
   getters: {},
   mutations: {
@@ -70,6 +71,15 @@ export default createStore({
     },
     setCompany(state, company) {
       state.company = company;
+    },
+
+    saveStaticFormResponses(state, { answer, question }) {
+      console.log(answer);
+      console.log(question);
+      if (!state.staticFormResponses[question.question]) {
+        state.staticFormResponses[question.question] = null;
+      }
+      state.staticFormResponses[question.question] = answer;
     },
   },
   actions: {

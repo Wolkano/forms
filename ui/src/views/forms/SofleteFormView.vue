@@ -1,38 +1,57 @@
 <template>
   <div class="chatbot-container">
-    <div v-if="!isCalculated" class="chatbot-form">
-      <div class="question-card">
-        <p class="question-title">{{ currentQuestion?.question }}</p>
-        <p class="question-text">{{ currentQuestion?.text }}</p>
+    <div class="chatbot-form">
+      <div
+        class="question-card"
+        v-for="question in questions"
+        :key="question.id"
+      >
         <component
-          :is="getComponent(currentQuestion?.type)"
-          :question="currentQuestion"
-          class="input-container"
-          @answer="handleAnswer($event, currentQuestion)"
+          :is="getComponent(question?.type)"
+          :question="question"
+          class="dynamic-input-container"
+          @answer="handleAnswer($event, question)"
+          :answers="answers"
         />
       </div>
     </div>
-    <div v-else class="result-container">
-      <h2>Here is the result:</h2>
-      <pre>{{ answers }}</pre>
-    </div>
+    <button class="submit-button" @click="submit">Skicka in</button>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted, nextTick } from "vue";
 import { useStore } from "vuex";
 import ButtonsComponent from "../../inputs/ButtonsComponent.vue";
 import SliderComponent from "../../inputs/form/SliderComponent.vue";
 import CheckboxComponent from "../../inputs/form/CheckboxComponent.vue";
+import InputComponent from "../../inputs/form/InputComponent.vue";
+import RadioButtonComponent from "../../inputs/form/RadioButtonComponent.vue";
 
 const store = useStore();
-const isCalculated = computed(() => store.state.isCalculated);
-const answers = computed(() => store.state.responses);
-const currentQuestionIndex = computed(() => store.state.currentQuestionIndex);
-const currentQuestion = computed(
-  () => store.state.questions[currentQuestionIndex.value]
-);
+
+const sendHeight = () => {
+  const height = document.documentElement.scrollHeight;
+  console.log("posting heigth", height);
+  window.parent.postMessage(
+    { type: "iframeHeight", height },
+    "https://sofletestad.netlify.app/companyform"
+  );
+};
+
+onMounted(() => {
+  sendHeight(); // Send height when component loads
+
+  // Observe changes in form size
+  const observer = new ResizeObserver(() => {
+    nextTick(() => sendHeight()); // Ensure height update after DOM changes
+  });
+
+  observer.observe(document.body);
+});
+
+const questions = computed(() => store.state.questions);
+const answers = computed(() => store.state.staticFormResponses);
 
 const getComponent = (type) => {
   return (
@@ -40,23 +59,21 @@ const getComponent = (type) => {
       buttons: ButtonsComponent,
       slider: SliderComponent,
       checkbox: CheckboxComponent,
+      radioButton: RadioButtonComponent,
+      input: InputComponent,
     }[type] || "div"
   );
 };
 
-const handleAnswer = (answer) => {
-  store.commit("saveResponse", { id: currentQuestion.value.id, answer });
-  if (currentQuestion.value.next) {
-    store.commit("nextQuestion");
-  } else {
-    store.commit("setIsCalculated", true);
-  }
+const handleAnswer = (answer, question) => {
+  // Skicka med id
+  store.commit("saveStaticFormResponses", { answer, question });
 };
 </script>
 
 <style lang="scss" scoped>
 .chatbot-container {
-  max-width: 600px;
+  max-width: 60%;
   margin: auto;
   padding: 20px;
   background: #f9f9f9;
@@ -78,18 +95,7 @@ const handleAnswer = (answer) => {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.question-text {
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.question-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.input-container {
+.dynamic-input-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -100,6 +106,9 @@ const handleAnswer = (answer) => {
   color: white;
   font-size: 16px;
   padding: 10px;
+  width: 50%;
+  margin-top: 30px;
+  font-weight: 600;
   border: none;
   border-radius: 6px;
   cursor: pointer;

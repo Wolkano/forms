@@ -1,36 +1,110 @@
 <template>
-  <div class="flex flex-col space-y-2">
-    <input
-      type="range"
-      :min="question.min"
-      :max="question.max"
+  <div class="chat-input-container">
+    <!-- Range Slider Input -->
+    <p class="question-title">{{ question?.question }}</p>
+    <p class="question-text">{{ question?.text }}</p>
+    <vue-slider
       v-model="selectedValue"
-      class="w-full cursor-pointer"
+      :min="question?.min"
+      :max="question?.max"
+      class="slider-input"
       :step="question.step"
+      width="100%"
+      dotSize="20"
+      @change="confirmSelection"
     />
-    <p class="text-center font-semibold">{{ selectedValue }}</p>
-    <button
-      @click="confirmSelection"
-      class="bg-blue-500 text-white px-4 py-2 rounded-md"
-    >
-      Bekräfta
-    </button>
+
+    <!-- Display the selected value -->
+    <p class="selected-value">{{ selectedValue }} {{ enhet }}</p>
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
+import { ref, computed, defineProps, defineEmits } from "vue";
+import VueSlider from "vue-slider-component";
+import "../../assets/slider.css";
 
-export default {
-  props: ["question"],
-  setup(props, { emit }) {
-    const selectedValue = ref((props.question.min + props.question.max) / 2);
+const props = defineProps(["question", "answers"]);
+const emit = defineEmits(["answer"]);
 
-    const confirmSelection = () => {
-      emit("answer", selectedValue.value);
-    };
+const selectedValue = ref(
+  props.answers[props.question.id]?.answer ??
+    (props.question.min + props.question.max) / 2
+);
+const enhet = computed(() => props.question.enhet);
 
-    return { selectedValue, confirmSelection };
-  },
+const confirmSelection = () => {
+  emit("answer", selectedValue.value);
+  selectedValue.value = 0;
 };
 </script>
+
+<style scoped lang="scss">
+.question-text {
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.question-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.chat-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 85%;
+  margin: 20px auto;
+}
+
+.slider-input:focus {
+  outline: none;
+}
+
+.selected-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.confirm-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.confirm-button:hover {
+  background-color: #0056b3;
+}
+
+.confirm-button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .chat-input-container {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .selected-value {
+    font-size: 16px;
+  }
+
+  .confirm-button {
+    font-size: 14px;
+  }
+}
+</style>
