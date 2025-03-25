@@ -1,15 +1,18 @@
 <template>
   <div class="chat-input-container">
     <!-- Input field for user answer -->
-    <h2>{{ props.question.label }}</h2>
-    <span class="material-icons input_icon">{{
-      props.question.inputIcon
-    }}</span>
+
+    <label class="label" :for="props.question.question">
+      <span class="material-icons input_icon">{{
+        props.question.inputIcon
+      }}</span
+      >{{ props.question.question }}</label
+    >
     <input
       v-model="answer"
+      :id="props.question.question"
       :type="props.question.inputType"
       :autocomplete="props.question.autocomplete"
-      :placeholder="props.question.question"
       class="text-input"
       @input="$emit('answer', answer), (answer = '')"
     />
@@ -18,12 +21,15 @@
 
 <script setup>
 import { defineProps, ref, computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 
-const props = defineProps(["question", "answers"]);
-const initialValue = computed(() =>
-  props.question.isCustomerInformation
-    ? props.answers?.customerInformation?.[props?.question?.question]
-    : props.answers[props.question.id]?.answer
+const answers = computed(() => store.state.staticFormResponses);
+
+const props = defineProps(["question"]);
+
+const initialValue = computed(
+  () => answers?.value?.[props?.question?.question]
 );
 
 const answer = ref(initialValue.value ?? ""); // Stores the input value
@@ -48,10 +54,16 @@ const answer = ref(initialValue.value ?? ""); // Stores the input value
   width: 85%;
   margin: 20px auto;
 
+  .label {
+    display: flex;
+    font-size: 22px;
+    align-self: flex-start;
+  }
+
   .input_icon {
-    margin-bottom: 20px;
     color: #007bff;
-    font-size: 50px;
+    font-size: 26px;
+    margin-right: 20px;
   }
 }
 
@@ -66,7 +78,7 @@ const answer = ref(initialValue.value ?? ""); // Stores the input value
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 5px;
   margin-bottom: 15px;
   transition: border-color 0.3s ease;

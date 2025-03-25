@@ -27,14 +27,19 @@ const selectedOption = ref(props.answers[props.question.question] ?? undefined);
 
 <style scoped lang="scss">
 .question-text {
-  font-size: 12px;
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
 .question-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  width: 90%;
+  padding-bottom: 5px;
+  border-bottom: solid 2px #007bff;
+  margin-left: auto;
+  margin-right: auto;
 }
 .form-radio-group {
   display: flex;

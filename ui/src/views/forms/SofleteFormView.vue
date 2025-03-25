@@ -3,10 +3,22 @@
     <div class="chatbot-form">
       <div
         class="question-card"
-        v-for="question in questions"
+        v-for="question in filteredQuestions"
         :key="question.id"
       >
         <component
+          :is="getComponent(question?.type)"
+          :question="question"
+          class="dynamic-input-container"
+          @answer="handleAnswer($event, question)"
+          :answers="answers"
+        />
+      </div>
+      <h2>Din information</h2>
+      <div class="customerInformation">
+        <component
+          v-for="question in customerInformationQuestions"
+          :key="question"
           :is="getComponent(question?.type)"
           :question="question"
           class="dynamic-input-container"
@@ -22,7 +34,7 @@
 <script setup>
 import { computed, onMounted, nextTick } from "vue";
 import { useStore } from "vuex";
-import ButtonsComponent from "../../inputs/ButtonsComponent.vue";
+import ButtonsComponent from "../../inputs/form/ButtonsComponent.vue";
 import SliderComponent from "../../inputs/form/SliderComponent.vue";
 import CheckboxComponent from "../../inputs/form/CheckboxComponent.vue";
 import InputComponent from "../../inputs/form/InputComponent.vue";
@@ -52,6 +64,14 @@ onMounted(() => {
 
 const questions = computed(() => store.state.questions);
 const answers = computed(() => store.state.staticFormResponses);
+
+const filteredQuestions = computed(() =>
+  questions.value.filter((question) => !question.isCustomerInformation)
+);
+
+const customerInformationQuestions = computed(() =>
+  questions.value.filter((question) => question.isCustomerInformation)
+);
 
 const getComponent = (type) => {
   return (
@@ -93,6 +113,15 @@ const handleAnswer = (answer, question) => {
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.customerInformation {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .dynamic-input-container {
+    width: 35%;
+  }
 }
 
 .dynamic-input-container {

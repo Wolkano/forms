@@ -41,15 +41,20 @@ const confirmSelection = () => {
 
 <style scoped lang="scss">
 .question-text {
-  font-size: 12px;
+  font-size: 18px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 .question-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  width: 90%;
+  padding-bottom: 5px;
+  border-bottom: solid 2px #007bff;
+  margin-left: auto;
+  margin-right: auto;
 }
 .chat-input-container {
   display: flex;
@@ -72,25 +77,6 @@ const confirmSelection = () => {
   font-weight: 600;
   color: #333;
   margin-bottom: 20px;
-}
-
-.confirm-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.confirm-button:hover {
-  background-color: #0056b3;
-}
-
-.confirm-button:active {
-  transform: scale(0.98);
 }
 
 @media (max-width: 768px) {

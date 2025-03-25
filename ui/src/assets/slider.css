@@ -62,6 +62,7 @@
 .vue-slider:hover .vue-slider-dot-handle {
   transform: scale(1.5);
   border-color: #69c0ff;
+  cursor: grab;
 }
 
 .vue-slider-dot-handle-focus {
