@@ -14,7 +14,7 @@
       :type="props.question.inputType"
       :autocomplete="props.question.autocomplete"
       class="text-input"
-      @input="$emit('answer', answer), (answer = '')"
+      @input="$emit('answer', answer)"
     />
   </div>
 </template>
@@ -27,6 +27,7 @@ const store = useStore();
 const answers = computed(() => store.state.staticFormResponses);
 
 const props = defineProps(["question"]);
+console.log(answers.value?.[props?.question?.question]);
 
 const initialValue = computed(
   () => answers?.value?.[props?.question?.question]
