@@ -26,6 +26,8 @@ const selectedOption = ref(props.answers[props.question.question] ?? undefined);
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/variables.scss";
+
 .question-text {
   font-size: 18px;
   margin-bottom: 10px;
@@ -37,7 +39,7 @@ const selectedOption = ref(props.answers[props.question.question] ?? undefined);
   margin-bottom: 10px;
   width: 90%;
   padding-bottom: 5px;
-  border-bottom: solid 2px #007bff;
+  border-bottom: solid 2px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -50,7 +52,6 @@ const selectedOption = ref(props.answers[props.question.question] ?? undefined);
   width: 90%;
   margin: 20px auto;
   padding: 15px;
-  background-color: #fff;
   border-radius: 10px;
   flex-wrap: wrap;
   .radio-option {
@@ -67,10 +68,8 @@ const selectedOption = ref(props.answers[props.question.question] ?? undefined);
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: #ddd;
       font-size: 20px;
       font-weight: bold;
-      color: #333;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
@@ -78,13 +77,10 @@ const selectedOption = ref(props.answers[props.question.question] ?? undefined);
 }
 
 .radio-input:hover + .radio-label {
-  background-color: #79baff;
   transform: scale(1.2);
 }
 
 .radio-input:checked + .radio-label {
-  background-color: #007bff;
-  color: white;
   transform: scale(1.4);
 }
 

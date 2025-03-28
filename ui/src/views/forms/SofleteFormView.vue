@@ -14,7 +14,7 @@
           :answers="answers"
         />
       </div>
-      <h2>Din information</h2>
+      <h2 class="customerInformationTitle">Din information</h2>
       <div class="customerInformation">
         <component
           v-for="question in customerInformationQuestions"
@@ -34,11 +34,12 @@
 <script setup>
 import { computed, onMounted, nextTick } from "vue";
 import { useStore } from "vuex";
-import ButtonsComponent from "../../inputs/form/ButtonsComponent.vue";
-import SliderComponent from "../../inputs/form/SliderComponent.vue";
-import CheckboxComponent from "../../inputs/form/CheckboxComponent.vue";
-import InputComponent from "../../inputs/form/InputComponent.vue";
-import RadioButtonComponent from "../../inputs/form/RadioButtonComponent.vue";
+import ButtonsComponent from "@/inputs/form/ButtonsComponent.vue";
+import SliderComponent from "@/inputs/form/SliderComponent.vue";
+import CheckboxComponent from "@/inputs/form/CheckboxComponent.vue";
+import InputComponent from "@/inputs/form/InputComponent.vue";
+import RadioButtonComponent from "@/inputs/form/RadioButtonComponent.vue";
+import ImageSelector from "@/inputs/form/ImageSelector.vue";
 
 const store = useStore();
 
@@ -81,6 +82,7 @@ const getComponent = (type) => {
       checkbox: CheckboxComponent,
       radioButton: RadioButtonComponent,
       input: InputComponent,
+      imageSelector: ImageSelector,
     }[type] || "div"
   );
 };
@@ -92,13 +94,14 @@ const handleAnswer = (answer, question) => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variables.scss";
+
 .chatbot-container {
   max-width: 60%;
   margin: auto;
   padding: 20px;
-  background: #f9f9f9;
+  background: $primary;
   border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   font-family: "Arial", sans-serif;
 }
 
@@ -109,10 +112,13 @@ const handleAnswer = (answer, question) => {
 }
 
 .question-card {
-  background: white;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.customerInformationTitle {
+  color: white;
 }
 
 .customerInformation {
@@ -131,7 +137,7 @@ const handleAnswer = (answer, question) => {
 }
 
 .submit-button {
-  background: #007bff;
+  background: $orange;
   color: white;
   font-size: 16px;
   padding: 10px;
@@ -144,7 +150,7 @@ const handleAnswer = (answer, question) => {
   transition: 0.3s;
 
   &:hover {
-    background: #0056b3;
+    background: $darkOrange;
   }
 }
 

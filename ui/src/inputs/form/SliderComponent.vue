@@ -40,6 +40,8 @@ const confirmSelection = () => {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/variables.scss";
+
 .question-text {
   font-size: 18px;
   margin-bottom: 10px;
@@ -52,7 +54,7 @@ const confirmSelection = () => {
   margin-bottom: 10px;
   width: 90%;
   padding-bottom: 5px;
-  border-bottom: solid 2px #007bff;
+  border-bottom: solid 2px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -61,7 +63,6 @@ const confirmSelection = () => {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   width: 85%;
@@ -75,7 +76,6 @@ const confirmSelection = () => {
 .selected-value {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
   margin-bottom: 20px;
 }
 

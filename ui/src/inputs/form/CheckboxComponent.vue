@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/variables.scss";
+
 .question-text {
   font-size: 18px;
   margin-bottom: 10px;
@@ -56,7 +58,7 @@ export default {
   margin-bottom: 10px;
   width: 90%;
   padding-bottom: 5px;
-  border-bottom: solid 2px #007bff;
+  border-bottom: solid 2px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -65,10 +67,10 @@ export default {
   flex-direction: row;
   gap: 15px;
   align-items: flex-start;
+  justify-content: center;
   width: 90%;
   margin: 20px auto;
   padding: 15px;
-  background-color: #fff;
   border-radius: 10px;
   flex-wrap: wrap;
   .checkbox-option {
@@ -84,7 +86,6 @@ export default {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #007bff; /* Custom color for checkboxes */
   transition: transform 0.5s ease;
   &:hover {
     transform: scale(1.3);
@@ -97,19 +98,12 @@ export default {
 .checkbox-label {
   cursor: pointer;
   font-size: 16px;
-  color: #333;
   transition: color 0.3s ease;
-}
-
-.checkbox-label:hover {
-  color: #007bff;
 }
 
 .confirm-button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -119,16 +113,11 @@ export default {
   align-self: center;
 }
 
-.confirm-button:hover {
-  background-color: #0056b3;
-}
-
 .confirm-button:active {
   transform: scale(0.98);
 }
 
 .confirm-button:disabled {
-  background-color: #9dc2e9;
   cursor: not-allowed;
 }
 

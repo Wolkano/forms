@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { watchEffect } from "vue";
+import { watchEffect, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
@@ -17,6 +17,23 @@ watchEffect(() => {
     store.dispatch("loadQuestions", company);
   }
 });
+
+const loadScss = async (routeName) => {
+  const company = routeName.replace("/", "");
+  try {
+    await import(`@/assets/scss/${company}Styling.scss`);
+  } catch (error) {
+    console.error("Error loading SCSS file:", error);
+  }
+};
+
+watch(
+  () => route.path,
+  (newRoute) => {
+    loadScss(newRoute);
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss">

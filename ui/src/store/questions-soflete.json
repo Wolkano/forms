@@ -68,48 +68,64 @@
     },
     {
       "id": 4,
+      "text": "Välj en marmor-färg för köksbänken",
+      "type": "imageSelector",
+      "options": [
+        "marble_white.jpg",
+        "marble_black.jpg",
+        "marble_grey.jpg",
+        "marble_green.jpg"
+      ],
+      "multiple": false,
+      "next": 5,
+      "question": "Marmorval",
+      "previous": 3,
+      "progress": 56
+    },
+    {
+      "id": 5,
       "text": "Namn",
       "inputType": "text",
       "type": "input",
       "autocomplete": "name",
-      "next": 5,
+      "next": 6,
       "question": "Namn",
       "isCustomerInformation": true,
       "label": "Vänligen ange ditt namn",
-      "previous": 3,
+      "previous": 4,
       "progress": 64,
       "inputIcon": "person"
     },
     {
-      "id": 5,
+      "id": 6,
       "text": "Epost",
       "inputType": "email",
       "type": "input",
       "autocomplete": "email",
-      "next": 6,
+      "next": 7,
       "question": "Epost",
       "label": "Vänligen ange din epost-adress",
       "isCustomerInformation": true,
       "inputIcon": "mail",
-      "previous": 4,
+      "previous": 5,
       "progress": 70
     },
     {
-      "id": 6,
+      "id": 7,
       "text": "Telefon",
       "inputType": "tel",
       "type": "input",
       "autocomplete": "tel",
-      "next": 7,
+      "next": 8,
       "question": "Telefon",
       "isCustomerInformation": true,
       "label": "Vänligen ange ditt telefonnummer",
       "inputIcon": "phone",
-      "previous": 5,
+      "previous": 6,
       "progress": 86
     },
     {
-      "id": 7,
+      "id": 8,
       "text": "Adress",
       "inputType": "text",
       "type": "input",
@@ -119,7 +135,7 @@
       "isCustomerInformation": true,
       "label": "Vänligen ange din adress",
       "inputIcon": "my_location",
-      "previous": 6,
+      "previous": 7,
       "progress": 95
     }
   ]

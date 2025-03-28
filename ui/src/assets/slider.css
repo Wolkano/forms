@@ -21,12 +21,12 @@
 
 /* process style */
 .vue-slider-process {
-  background-color: #007bff;
+  background-color: #fe9d01;
   border-radius: 15px;
   transition: background-color 0.3s;
 }
 .vue-slider:hover .vue-slider-process {
-  background-color: #007bff;
+  background-color: #fe9d01;
 }
 
 /* mark style */
@@ -38,10 +38,10 @@
   background-color: #fff;
 }
 .vue-slider-mark-step-active {
-  box-shadow: 0 0 0 2px #007bff;
+  box-shadow: 0 0 0 2px #fe9d01;
 }
 .vue-slider:hover .vue-slider-mark-step-active {
-  box-shadow: 0 0 0 2px #69c0ff;
+  box-shadow: 0 0 0 2px #ca7d00;
 }
 
 .vue-slider-mark-label {
@@ -55,32 +55,32 @@
   height: 100%;
   border-radius: 50%;
   background-color: #fff;
-  border: 2px solid #007bff;
+  border: 2px solid #fe9d01;
   box-sizing: border-box;
   transition: box-shadow 0.3s, border-color 0.3s, transform 0.5s;
 }
 .vue-slider:hover .vue-slider-dot-handle {
   transform: scale(1.5);
-  border-color: #69c0ff;
+  border-color: #ca7d00;
   cursor: grab;
 }
 
 .vue-slider-dot-handle-focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 5px rgba(54, 171, 255, 0.2);
-  background-color: #007bff;
+  border-color: #fe9d01;
+  box-shadow: 0 0 0 5px #ca7d00;
+  background-color: #fe9d01;
 }
 .vue-slider:hover .vue-slider-dot-handle-focus {
-  border-color: #007bff;
-  background-color: #007bff;
+  border-color: #fe9d01;
+  background-color: #fe9d01;
 }
 
 .vue-slider-dot-handle:hover {
-  border-color: #007bff;
-  background-color: #007bff;
+  border-color: #fe9d01;
+  background-color: #fe9d01;
 }
 .vue-slider:hover .vue-slider-dot-handle:hover {
-  border-color: #007bff;
+  border-color: #fe9d01;
 }
 
 .vue-slider-dot-handle-disabled {
